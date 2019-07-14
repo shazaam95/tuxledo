@@ -12,7 +12,7 @@
 							Help & FAQs
 						</a>
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+						<a href="<?php echo site_url('account') ?>"class="flex-c-m trans-04 p-lr-25">
 							My Account
 						</a>
 
@@ -31,7 +31,7 @@
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
-					<a href="#" class="logo">
+					<a href="<?php echo base_url()?>" class="logo">
 						<img src="images/icons/tuxledo_h.png" alt="IMG-LOGO">
 					</a>
 
@@ -55,9 +55,9 @@
 								<a href="shoping-cart.html">Features</a>
 							</li> -->
 
-							<li>
+							<!-- <li>
 								<a href="blog.html">Blog</a>
-							</li>
+							</li> -->
 
 							<li>
 								<a href="about.html">About</a>
