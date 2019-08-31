@@ -57,6 +57,21 @@ public function get_product()
            
 	}
 
+    public function get_product_color($id,$ukuran)
+    {
+        $ukuran = str_replace("%20"," ",$ukuran);
+        echo json_encode($this->product_model->get_product_color($id,$ukuran));
+           
+    }
+
+    public function get_product_stock($id,$ukuran, $nama_warna)
+    {   
+        $ukuran = str_replace("%20"," ", $ukuran);
+        $nama_warna = str_replace("%20"," ", $nama_warna);
+        echo json_encode($this->product_model->get_product_stock($id,$ukuran,$nama_warna));
+           
+    }
+
 
 	public function get_product_image($id)
 	{

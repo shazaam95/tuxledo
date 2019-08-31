@@ -12,20 +12,23 @@ class Account extends CI_Controller {
 	public function index()
 	{
         
-        // $cek = $this->session->userdata('username');
+        $cek = $this->session->userdata('flag_admin');
 
-        // if(!empty($cek))
-        // 	{	
-        		// $data["lists"] = $this->table_model->getAll();
-
-                
-        	       $this->load->view("login");
-                
-    		// }
-    	// else 
-    	// 	{
-    	// 		$this->load->view("login");
-    	// 	}
+        if(!empty($cek))
+            {	
+        		if($cek==1)
+                {
+                    redirect(base_url('homepage/admin'));
+                }
+                else
+                {
+                    
+                }
+    		}
+    	else 
+    		{
+    			$this->load->view("login");
+    		}
 	}
 
 
@@ -57,6 +60,6 @@ class Account extends CI_Controller {
 
     	//removing session data 
         $this->session->sess_destroy();
-         redirect(base_url());
+         redirect(base_url('account'));
     }
 }

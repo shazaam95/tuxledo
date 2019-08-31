@@ -121,6 +121,9 @@ function detail_product(id, nama, harga, deskripsi)
       	$('.wrap-slick3-arrows').empty();
       	$('.slick3').empty();
       	$('#ukuran').empty();
+      	$('#warna').empty();
+      	$('.selectwarna').hide();
+      	$('.stok').hide();
         $.ajax({
 		  url: BASE_URL+"product/get_product_image/" + id ,
 		  dataType: 'json',
@@ -130,15 +133,15 @@ function detail_product(id, nama, harga, deskripsi)
 		  	for (i = 0; i < data.length; i++) {
 		  		var divdp = $('<div>').attr({
 					    "class": "item-slick3",
-					    "data-thumb": "images/product/product-" + data[i].id + ".jpeg"
+					    "data-thumb": "images/product/" + data[i].nama_gambar
 					});
 		  		var divdp2 = $('<div>').attr('class','wrap-pic-w pos-relative');
 		  		var imgdp1 = $('<img>').attr({
-					    "src": "images/product/product-" + data[i].id + ".jpeg",
+					    "src": "images/product/" + data[i].nama_gambar,
 					    "alt": "IMG-PRODUCT"
 					});
 		  		var adp1 = $("<a>").attr({
-					    "href": "images/product/product-" + data[i].id + ".jpeg",
+					    "href": "images/product/" + data[i].nama_gambar,
 					    "class": "flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
 					})
 		  		var idp = $('<i>').attr('class','fa fa-expand');
@@ -161,18 +164,30 @@ function detail_product(id, nama, harga, deskripsi)
 		  dataType: 'json',
 		  success: function(data) {
 
-		  		var choose = $('<option>').attr({
+		  		
+		  		var choose2 = $('<option>').attr({
 					    "value": "",
 					    "disabled" : "",
 					    "selected" : ""
 					}).text('Choose an option');
-		  		$('#ukuran').append(choose);
+
+		  		
+		  		$('.ukuran').append(choose2);
+
+		  		
+
 		  	for (i = 0; i < data.length; i++) {
 
-		  		var option = $('<option>').text(data[i].jenis);
-		  		$('#ukuran').append(option);
+		  		var option = $('<option>').text(data[i].ukuran);
+		  		$('.ukuran').append(option);
+
+		  		
 
 		  	}
+		 //  	$(".option_warna").each(function() {
+
+			// 	$(this).css("background-color", $(this).val());
+			// });
 
 
 		  	},
@@ -181,6 +196,59 @@ function detail_product(id, nama, harga, deskripsi)
                   alert("mohon maaf terjadi kesalahan sistem");}
                 
   			});
+
+        $('.ukuran').on('change', function() {
+        	
+        	$('.selectwarna').hide();
+        	$.ajax({
+		  	url: BASE_URL+"product/get_product_color/" + id  + '/' + this.value,
+		  	dataType: 'json',
+		  	success: function(data) {
+		  	
+			  	var choose = $('<option>').attr({
+						    "value": "",
+						    "disabled" : "",
+						    "selected" : ""
+						}).text('Choose an option');
+			  	$('.warna').empty();
+	        	$('.warna').append(choose);
+
+	        	for (i = 0; i < data.length; i++) {
+
+		        	var option2 = $('<option>').text(data[i].nama_warna);
+				  	// option2.attr('class','option_warna');
+				 	$('.warna').append(option2);
+			  	}
+			  	
+	        	$('.selectwarna').show(250);
+		  },
+		  error: function() {
+                
+                  alert("mohon maaf terjadi kesalahan sistem");}
+                
+  		});
+        	
+        });
+
+        $('.warna').on('change', function() {
+        	$('.stok').hide();
+  
+        	$.ajax({
+		  	url: BASE_URL+"product/get_product_stock/" + id  + '/' + $('.ukuran').val() + '/' + this.value,
+		  	dataType: 'json',
+		  	success: function(data) {
+
+			  	$('.num_product').attr('max', data[0].stok);
+			  	console.log(data[0].stok);
+	        	$('.stok').show(250);
+		  },
+		  error: function() {
+                
+                  alert("mohon maaf terjadi kesalahan sistem");}
+                
+  		});
+        	
+        });
 
         $("#nama").text(nama);
         $("#harga").text("Rp " + harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
@@ -210,7 +278,7 @@ $.ajax({
 			  		var div2 = $('<div>').attr('class','block2');
 			  		var div3 = $('<div>').attr('class','block2-pic hov-img0');
 			  		var img1 = $('<img>').attr({
-					    "src": "images/product/product-" + data[i].id_gambar + ".jpeg",
+					    "src": "images/product/" + data[i].nama_gambar,
 					    "alt": "IMG-PRODUCT"
 					});
 			  		
@@ -263,7 +331,7 @@ $.ajax({
 
 				
 				js_product();
-				js_add_wish_cart()
+				js_add_wish_cart();
 
 				if(data.length > 16)
 				{

@@ -36,4 +36,21 @@ class Homepage extends CI_Controller {
     	// 		$this->load->view("login");
     	// 	}
 	}
+
+	public function admin()
+	{
+
+		if(!empty($this->session->userdata('username')) && ($this->session->userdata('flag_admin')==1))
+		{
+			$this->load->view("admin/dashboard");
+		}
+
+		else 
+		{
+			redirect(base_url('account'));
+		}
+
+               
+    		
+	}
 }

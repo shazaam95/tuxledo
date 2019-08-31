@@ -31,7 +31,7 @@ $(document).ready(function() {
 			success: function(data) {
 			if(data == 1)
 			{
-				window.location.assign(BASE_URL);
+				window.location.assign(BASE_URL+"homepage/admin");
 			}
 			else {$("p#errorp").text("Username/email and Password did not Match");$(".error").show();}
 			

@@ -31,7 +31,7 @@
 <script type="text/javascript">
 	
 		$(document).ready(function() {
-			$("#x2").attr('class', 'active-menu label1')
+			$("#x2").attr('class', 'active-menu label1');
 		});
 </script>
 </body>
